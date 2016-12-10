@@ -12,6 +12,9 @@ namespace Octopus {
 	typedef signed  int              Int32;
 	typedef unsigned int             UInt32;
 
+	typedef signed long              Long;
+	typedef unsigned long            ULong;
+
 	typedef signed long              IntPtr;
 	typedef unsigned long            UIntPtr;
 

@@ -45,12 +45,19 @@ namespace Octopus {
 				MAX_ADDRESS_LENGTH = sizeof(struct sockaddr_in6)				
 			};
 
+		protected:
+
+			bool tryParseIPV4(const std::string& addr, struct in_addr& ia);
+			bool tryParseIPV6(const std::string& addr, struct in6_addr& ia, ULong& scope);
+
+			void initIPV4(const struct in_addr& ia, UInt16 port);
+			void initIPV6(const struct in6_addr& ia, ULong scope, UInt16 port);
 		private:
 
 			union
 			{
 				struct sockaddr_in  mAddr;
-				struct sockaddr_in6 mAdr6;
+				struct sockaddr_in6 mAddr6;
 			}mAddress;
 
 		};
