@@ -30,5 +30,11 @@
     <ClInclude Include="Types.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="Base.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="String.h">
+      <Filter>core</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

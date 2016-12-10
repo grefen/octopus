@@ -67,9 +67,11 @@
     <ClCompile Include="SocketAddress.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Base.h" />
     <ClInclude Include="Copyable.h" />
     <ClInclude Include="Noncopyable.h" />
     <ClInclude Include="SocketAddress.h" />
+    <ClInclude Include="String.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemDefinitionGroup />
