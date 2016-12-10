@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="SocketAddress.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Noncopyable.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Copyable.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="core">
+      <UniqueIdentifier>{d6f2ad2e-e5c2-4e3e-b0ff-88fa40f7ddf4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SocketAddress.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Noncopyable.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Copyable.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>core</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
