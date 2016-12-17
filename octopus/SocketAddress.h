@@ -52,6 +52,9 @@ namespace Octopus {
 
 			void initIPV4(const struct in_addr& ia, UInt16 port);
 			void initIPV6(const struct in6_addr& ia, ULong scope, UInt16 port);
+
+			void init(const std::string& hostAddress, UInt16 portNumber);
+			void initFromDNS(const std::string& hostAddress, UInt16 portNumber);
 		private:
 
 			union

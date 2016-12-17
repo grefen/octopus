@@ -11,6 +11,9 @@
     <ClCompile Include="Copyable.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="Exception.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="core">
@@ -34,6 +37,9 @@
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="String.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Exception.h">
       <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>

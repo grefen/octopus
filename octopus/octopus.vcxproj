@@ -62,6 +62,7 @@
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
     <ClCompile Include="Copyable.cpp" />
+    <ClCompile Include="Exception.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Noncopyable.cpp" />
     <ClCompile Include="SocketAddress.cpp" />
@@ -69,6 +70,7 @@
   <ItemGroup>
     <ClInclude Include="Base.h" />
     <ClInclude Include="Copyable.h" />
+    <ClInclude Include="Exception.h" />
     <ClInclude Include="Noncopyable.h" />
     <ClInclude Include="SocketAddress.h" />
     <ClInclude Include="String.h" />
