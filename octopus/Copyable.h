@@ -3,13 +3,11 @@
 
 namespace Octopus {
 
-	namespace Core {
 
 		class Copyable
 		{
 		};
-
-	}
+	
 }
 
 #endif

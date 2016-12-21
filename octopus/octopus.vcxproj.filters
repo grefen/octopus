@@ -14,6 +14,17 @@
     <ClCompile Include="Exception.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="Timestamp.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Buffer.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Fileobject.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Logfile.cpp" />
+    <ClCompile Include="StreamBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="core">
@@ -42,5 +53,16 @@
     <ClInclude Include="Exception.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="Timestamp.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Buffer.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Fileobject.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Logfile.h" />
+    <ClInclude Include="StreamBuffer.h" />
   </ItemGroup>
 </Project>

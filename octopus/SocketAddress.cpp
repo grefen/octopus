@@ -261,8 +261,7 @@ namespace Octopus {
 			}
 			else
 			{
-				//aierror(rc, hostname);
-				//throw
+
 				switch (rc)
 				{
 				case EAI_AGAIN:

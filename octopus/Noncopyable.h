@@ -3,7 +3,6 @@
 
 namespace Octopus {
 
-	namespace Core {
 
 		class Noncopyable
 		{
@@ -16,7 +15,7 @@ namespace Octopus {
 			Noncopyable& operator=(const Noncopyable&) = delete;
 		};
 
-	}
+	
 }
 
 #endif
