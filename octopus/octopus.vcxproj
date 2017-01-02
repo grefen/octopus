@@ -68,9 +68,13 @@
     <ClCompile Include="Logfile.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Noncopyable.cpp" />
+    <ClCompile Include="ScopedLoger.cpp" />
+    <ClCompile Include="Socket.cpp" />
     <ClCompile Include="SocketAddress.cpp" />
     <ClCompile Include="StreamBuffer.cpp" />
     <ClCompile Include="Timestamp.cpp" />
+    <ClCompile Include="TimeZone.cpp" />
+    <ClCompile Include="TypeFormat.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
@@ -78,12 +82,17 @@
     <ClInclude Include="Copyable.h" />
     <ClInclude Include="Exception.h" />
     <ClInclude Include="Fileobject.h" />
+    <ClInclude Include="Log.h" />
     <ClInclude Include="Logfile.h" />
     <ClInclude Include="Noncopyable.h" />
+    <ClInclude Include="ScopedLoger.h" />
+    <ClInclude Include="Socket.h" />
     <ClInclude Include="SocketAddress.h" />
     <ClInclude Include="StreamBuffer.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="Timestamp.h" />
+    <ClInclude Include="TimeZone.h" />
+    <ClInclude Include="TypeFormat.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemDefinitionGroup />

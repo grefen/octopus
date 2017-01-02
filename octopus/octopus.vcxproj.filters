@@ -23,8 +23,22 @@
     <ClCompile Include="Fileobject.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="Logfile.cpp" />
-    <ClCompile Include="StreamBuffer.cpp" />
+    <ClCompile Include="Logfile.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="ScopedLoger.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="StreamBuffer.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeZone.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="TypeFormat.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Socket.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="core">
@@ -62,7 +76,24 @@
     <ClInclude Include="Fileobject.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="Logfile.h" />
-    <ClInclude Include="StreamBuffer.h" />
+    <ClInclude Include="Logfile.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="ScopedLoger.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="StreamBuffer.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeZone.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeFormat.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Socket.h" />
   </ItemGroup>
 </Project>
