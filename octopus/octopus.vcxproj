@@ -63,11 +63,14 @@
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Copyable.cpp" />
+    <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="Exception.cpp" />
     <ClCompile Include="Fileobject.cpp" />
     <ClCompile Include="Logfile.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Noncopyable.cpp" />
+    <ClCompile Include="Poller.cpp" />
+    <ClCompile Include="Reactor.cpp" />
     <ClCompile Include="ScopedLoger.cpp" />
     <ClCompile Include="Socket.cpp" />
     <ClCompile Include="SocketAddress.cpp" />
@@ -80,11 +83,14 @@
     <ClInclude Include="Base.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Copyable.h" />
+    <ClInclude Include="EventHandler.h" />
     <ClInclude Include="Exception.h" />
     <ClInclude Include="Fileobject.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Logfile.h" />
     <ClInclude Include="Noncopyable.h" />
+    <ClInclude Include="Poller.h" />
+    <ClInclude Include="Reactor.h" />
     <ClInclude Include="ScopedLoger.h" />
     <ClInclude Include="Socket.h" />
     <ClInclude Include="SocketAddress.h" />

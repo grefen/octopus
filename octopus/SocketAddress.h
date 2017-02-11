@@ -45,6 +45,8 @@ namespace Octopus {
 				MAX_ADDRESS_LENGTH = sizeof(struct sockaddr_in6)				
 			};
 
+			const struct sockaddr* getSockAddr() const { return static_cast<const struct sockaddr*>((const void*)&(mAddress.mAddr6)); }
+			void setSockAddrInet6(const struct sockaddr_in6& addr6) { mAddress.mAddr6 = addr6; }
 		protected:
 
 			bool tryParseIPV4(const std::string& addr, struct in_addr& ia);

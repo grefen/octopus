@@ -33,6 +33,7 @@
 #include <algorithm>
 #include <sstream>
 #include <ctime>
+#include <map>
 
 
 #include "Types.h"

@@ -38,7 +38,12 @@
     <ClCompile Include="TypeFormat.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="Socket.cpp" />
+    <ClCompile Include="Socket.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="EventHandler.cpp" />
+    <ClCompile Include="Reactor.cpp" />
+    <ClCompile Include="Poller.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="core">
@@ -94,6 +99,11 @@
     <ClInclude Include="TypeFormat.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="Socket.h" />
+    <ClInclude Include="Socket.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="EventHandler.h" />
+    <ClInclude Include="Reactor.h" />
+    <ClInclude Include="Poller.h" />
   </ItemGroup>
 </Project>
