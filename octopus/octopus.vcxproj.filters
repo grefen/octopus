@@ -45,6 +45,7 @@
     <ClCompile Include="Reactor.cpp" />
     <ClCompile Include="Poller.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="TimerId.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="core">
@@ -107,5 +108,6 @@
     <ClInclude Include="Reactor.h" />
     <ClInclude Include="Poller.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="TimerId.h" />
   </ItemGroup>
 </Project>
