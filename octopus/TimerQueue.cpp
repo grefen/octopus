@@ -109,7 +109,26 @@ namespace Octopus {
 		}
 		void TimerQueue::handleRead()
 		{
+			
+			Timestamp now(Timestamp::now());
 
+			//read timefd
+			readTimerfd(mtimerFd, now);
+
+			//获取过期时间
+			std::vector<Entry> expired = getExpired(now);
+
+			mcallingExpiredTimers = true;
+			cancelingTimers.clear();
+			// safe to callback outside critical section
+			for (std::vector<Entry>::iterator it = expired.begin();
+				it != expired.end(); ++it)
+			{
+				it->second->run();
+			}
+			mcallingExpiredTimers = false;
+
+			reset(expired, now);
 		}
 
 		void TimerQueue::addTimerInReactor(Timer* timer)
