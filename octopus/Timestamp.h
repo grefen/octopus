@@ -47,9 +47,27 @@ namespace Octopus {
 		static Timestamp fromEpochTime(std::time_t t);
 		static Timestamp fromUtcTime(Int64 val);
 
+		
+		static Timestamp invalid()
+		{
+			return Timestamp();
+		}
+
 	protected:
 
 		Int64 mValue;
 	};
+
+	inline Timestamp addTime(Timestamp timestamp, double seconds)
+	{
+		Int64 delta = static_cast<int64_t>(seconds * Timestamp::TIME_RESOLUTION);
+		return Timestamp(timestamp.epochMicroseconds() + delta);
+	}
+
+	inline double timeDifference(Timestamp high, Timestamp low)
+	{
+		Int64 diff = high.epochMicroseconds() - low.epochMicroseconds();
+		return static_cast<double>(diff) / Timestamp::TIME_RESOLUTION;
+	}
 }
 #endif
