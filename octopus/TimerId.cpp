@@ -3,13 +3,6 @@
 
 namespace Octopus {
 
-	TimerId::TimerId()
-	{
-	}
 
-
-	TimerId::~TimerId()
-	{
-	}
 
 }

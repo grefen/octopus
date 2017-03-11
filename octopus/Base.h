@@ -34,6 +34,9 @@
 #include <sstream>
 #include <ctime>
 #include <map>
+#include <set>
+#include <atomic> 
+#include <cassert>
 
 
 #include "Types.h"

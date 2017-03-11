@@ -3,6 +3,7 @@
 
 #include "Base.h"
 #include "Timestamp.h"
+#include <atomic>
 
 namespace Octopus {
 
@@ -16,7 +17,10 @@ namespace Octopus {
 			, mInterval(interval)
 			, mRepeat(interval > 0.0)
 			, mCallback(cb)
-		{}
+			
+		{
+			mSequence++;
+		}
 			
 		~Timer() {}
 
@@ -37,7 +41,15 @@ namespace Octopus {
 
 		void restart(Timestamp now);
 
+		UInt64 sequence()
+		{
+			return mSequence;
+		}
 
+		static UInt64 countCreated()
+		{
+			return mSequence;
+		}
 	private:
 
 		
@@ -46,6 +58,7 @@ namespace Octopus {
 		const bool          mRepeat;
 		const TimerCallback mCallback;
 
+		static std::atomic_ullong   mSequence;
 	};
 
 }

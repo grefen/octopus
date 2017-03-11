@@ -77,6 +77,7 @@
     <ClCompile Include="StreamBuffer.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerId.cpp" />
+    <ClCompile Include="TimerQueue.cpp" />
     <ClCompile Include="Timestamp.cpp" />
     <ClCompile Include="TimeZone.cpp" />
     <ClCompile Include="TypeFormat.cpp" />
@@ -100,6 +101,7 @@
     <ClInclude Include="String.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerId.h" />
+    <ClInclude Include="TimerQueue.h" />
     <ClInclude Include="Timestamp.h" />
     <ClInclude Include="TimeZone.h" />
     <ClInclude Include="TypeFormat.h" />

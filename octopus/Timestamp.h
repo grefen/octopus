@@ -43,7 +43,7 @@ namespace Octopus {
 		std::string toString() const;
 		std::string toData() const;
 
-		static Int64 now();
+		static Timestamp now();
 		static Timestamp fromEpochTime(std::time_t t);
 		static Timestamp fromUtcTime(Int64 val);
 
@@ -53,21 +53,27 @@ namespace Octopus {
 			return Timestamp();
 		}
 
+		bool valid()
+		{
+			return mValue > 0;
+		}
+
 	protected:
 
 		Int64 mValue;
 	};
 
-	inline Timestamp addTime(Timestamp timestamp, double seconds)
+	inline Timestamp addTime(const Timestamp& timestamp, double seconds)
 	{
 		Int64 delta = static_cast<int64_t>(seconds * Timestamp::TIME_RESOLUTION);
 		return Timestamp(timestamp.epochMicroseconds() + delta);
 	}
 
-	inline double timeDifference(Timestamp high, Timestamp low)
+	inline double timeDifference(const Timestamp& high, const Timestamp& low)
 	{
 		Int64 diff = high.epochMicroseconds() - low.epochMicroseconds();
 		return static_cast<double>(diff) / Timestamp::TIME_RESOLUTION;
 	}
+
 }
 #endif

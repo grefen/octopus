@@ -118,14 +118,14 @@ namespace Octopus {
 		return buf;
 	}
 
-	Int64 Timestamp::now()
+	Timestamp Timestamp::now()
 	{
 		struct timeval tv;
 		if (gettimeofday(&tv, NULL))
 			throw SystemException("cannot get time of day");
 		UInt64 value = Int64(tv.tv_sec)*TIME_RESOLUTION + tv.tv_usec;
 
-		return value;
+		return Timestamp(value);
 	}
 
 	Timestamp Timestamp::fromEpochTime(std::time_t t)

@@ -13,16 +13,32 @@ namespace Octopus {
 	public:
 		TimerId()
 			:mTimer(0)
+			, mSequence(0)
 		{
+		}
+		TimerId(Timer* timer, UInt64 seq)
+			:mTimer(timer)
+			, mSequence(seq)
+		{
+
 		}
 		~TimerId()
 		{
 
 		}
 
+		Timer* getTimer()
+		{
+			return mTimer;
+		}
+		UInt64 getSequence()
+		{
+			return mSequence;
+		}
 	private:
 
 		Timer* mTimer;
+		UInt64 mSequence;
 	};
 
 }

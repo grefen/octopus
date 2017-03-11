@@ -40,6 +40,7 @@ namespace Octopus {
 
 			void enableRead(bool enable);
 			void enableWrite(bool enable);
+			void disableAll() { mevents = NONE_EVENT; update(); }
 
 			bool isEnableRead();
 			bool isEnalbeWrite();
