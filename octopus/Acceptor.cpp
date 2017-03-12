@@ -46,7 +46,7 @@ namespace Octopus {
 			::close(mreservedFd);
 		}
 
-		void Acceptor::setConnectionCallback(ConnectionCallback cb)
+		void Acceptor::setConnectionCallback(AcceptorCallback cb)
 		{
 			mconnectionCallback = cb;
 		}

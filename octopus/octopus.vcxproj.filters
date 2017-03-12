@@ -48,6 +48,7 @@
     <ClCompile Include="TimerId.cpp" />
     <ClCompile Include="TimerQueue.cpp" />
     <ClCompile Include="Acceptor.cpp" />
+    <ClCompile Include="TcpConnection.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="core">
@@ -113,5 +114,6 @@
     <ClInclude Include="TimerId.h" />
     <ClInclude Include="TimerQueue.h" />
     <ClInclude Include="Acceptor.h" />
+    <ClInclude Include="TcpConnection.h" />
   </ItemGroup>
 </Project>

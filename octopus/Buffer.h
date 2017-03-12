@@ -28,6 +28,10 @@ namespace Octopus {
 
 		void shrink(size_t reserve);
 
+		ssize_t readFd(int fd, int* savedErrno);
+
+		const char* peek() const;
+
 	private:
 		std::vector<char> mBuffer;
 		size_t            mWriteOffset;

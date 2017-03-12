@@ -56,6 +56,8 @@ namespace Octopus {
 			std::string reventsToString() const;
 			std::string eventsToString() const;
 
+			bool isWriting() const { return mevents & WRITE_EVENT; }
+			bool isReading() const { return mevents & READ_EVENT; }
 		private:
 			static std::string eventsToString(int fd, int ev);
 		private:

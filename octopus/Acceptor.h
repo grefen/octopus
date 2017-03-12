@@ -12,7 +12,7 @@ namespace Octopus {
 
 	namespace Core {
 
-		typedef std::function<void(int sockfd, const SocketAddress&)> ConnectionCallback;
+		typedef std::function<void(int sockfd, const SocketAddress&)> AcceptorCallback;
 
 		class Acceptor : public Noncopyable
 		{
@@ -21,7 +21,7 @@ namespace Octopus {
 			Acceptor(Reactor* reactor, const SocketAddress& addr);
 			~Acceptor();
 
-			void setConnectionCallback(ConnectionCallback cb);
+			void setConnectionCallback(AcceptorCallback cb);
 			bool isListenning();
 			void listen();
 
@@ -32,7 +32,7 @@ namespace Octopus {
 			Socket       macceptSocket;
 			EventHandler macceptHandler;
 
-			ConnectionCallback mconnectionCallback;
+			AcceptorCallback mconnectionCallback;
 
 			bool         mlistenning;
 			int          mreservedFd;
