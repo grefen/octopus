@@ -17,7 +17,7 @@ namespace Octopus {
 			explicit Socket(int fd);
 			~Socket();
 
-			int fd() const;
+			int fd() const { return mfd; };
 
 			void bind(const SocketAddress& address);
 

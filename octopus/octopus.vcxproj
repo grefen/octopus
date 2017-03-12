@@ -61,6 +61,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
+    <ClCompile Include="Acceptor.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Copyable.cpp" />
     <ClCompile Include="EventHandler.cpp" />
@@ -83,6 +84,7 @@
     <ClCompile Include="TypeFormat.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Acceptor.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Copyable.h" />
