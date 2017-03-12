@@ -43,6 +43,20 @@ namespace Octopus {
 			return new EventHandler(reactor, wakeupFd);
 		}
 
+#pragma GCC diagnostic ignored "-Wold-style-cast"
+		class IgnorePipeSignal
+		{
+		public:
+			IgnorePipeSignal()
+			{
+				::signal(SIGPIPE, SIG_IGN);
+				// LOG_TRACE << "Ignore SIGPIPE";
+			}
+		};
+#pragma GCC diagnostic error "-Wold-style-cast"
+
+		IgnorePipeSignal initObj;
+
 		Reactor::Reactor()
 			: mloop(false)
 			, mquit(false)
@@ -105,12 +119,12 @@ namespace Octopus {
 
 		void Reactor::removeHandler(EventHandler* handler)
 		{
-
+			mPoller->removeEventHandler(handler);
 		}
 
 		void Reactor::updateHandler(EventHandler* handler)
 		{
-
+			mPoller->updateEventHandler(handler);
 		}
 
 		void Reactor::handleWakeup()

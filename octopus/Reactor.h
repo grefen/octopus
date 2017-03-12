@@ -74,6 +74,7 @@ namespace Octopus {
 			EventHandlerList mActiveEventHandlers;
 			EventHandler     *mpCurrentActiveEventHandler;
 
+			//用于排队执行的方法
 			std::vector<PendingFunctor> mPendingFunctors;
 
 		};
