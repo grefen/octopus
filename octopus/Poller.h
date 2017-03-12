@@ -32,6 +32,7 @@ namespace Octopus {
 
 			void updateEventHandler(EventHandler* handler);
 			void removeEventHandler(EventHandler* handler);
+			bool hasEventHandler(EventHandler* handler);
 		protected:
 
 			void extractActiveEventHandlers(int num, EventHandlerList* activeList);

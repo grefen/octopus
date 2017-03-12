@@ -6,6 +6,8 @@
 #include "Reactor.h"
 #include "Poller.h"
 #include "Timestamp.h"
+#include "TimerId.h"
+#include "TimerQueue.h"
 
 namespace Octopus {
 
@@ -28,11 +30,19 @@ namespace Octopus {
 
 			void removeHandler(EventHandler*);
 			void updateHandler(EventHandler*);
+			bool hasHandler(EventHandler*);
 
 			void quit();
 			void wakeup();
 
 			void queuePending(PendingFunctor functor);
+
+			
+			TimerId setTimer(const Timestamp& time, const TimerCallback& cb);
+			TimerId setDelayTimer(double delay, const TimerCallback& cb);
+			TimerId setTickTimer(double interval, const TimerCallback& cb);
+			void    cancelTimer(TimerId timerId);
+
 		protected:
 
 			void handleWakeup();
@@ -52,13 +62,15 @@ namespace Octopus {
 			std::unique_ptr<Poller> mPoller;
 
 			//timerqueue
+			std::unique_ptr<TimerQueue> mtimerQueue;
 
+			//唤醒poller，用于统一事件源，如信号
 			int mwakeupFd;
-
 			std::unique_ptr<EventHandler> mWakeupEventHandler;
 
 			//context;
 
+			//每次从poll中获取当前要处理的handler
 			EventHandlerList mActiveEventHandlers;
 			EventHandler     *mpCurrentActiveEventHandler;
 

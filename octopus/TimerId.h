@@ -38,7 +38,7 @@ namespace Octopus {
 	private:
 
 		Timer* mTimer;
-		UInt64 mSequence;
+		UInt64 mSequence;//防止定制器冲突，两个定时器地址可能相同，用一个序列号来区分
 	};
 
 }

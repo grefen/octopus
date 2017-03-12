@@ -103,7 +103,7 @@ namespace Octopus {
 
 		void TimerQueue::cancel(TimerId timerId)
 		{
-			//把取消动作放到reactor中排队执行
+			//把取消动作放到reactor中排队执行，多线程中常用，在单进程中没有必要
 			mpReactor->queuePending(
 				std::bind(&TimerQueue::cancelInReactor, this, timerId));
 		}
@@ -211,7 +211,7 @@ namespace Octopus {
 				}
 				else//否则直接删除掉
 				{
-					
+					//
 					delete it->second; 
 				}
 			}

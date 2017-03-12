@@ -50,6 +50,7 @@ namespace Octopus {
 			, mrunPendingFunctors(false)
 			, miteration(0)
 			, mPoller(createPoller(this))
+			, mtimerQueue(new TimerQueue(this))
 			, mwakeupFd(createEventfd())
 			, mWakeupEventHandler(createEventHandler(this, mwakeupFd))
 			, mpCurrentActiveEventHandler(NULL)
@@ -61,8 +62,7 @@ namespace Octopus {
 
 		Reactor::~Reactor()
 		{
-			mWakeupEventHandler->enableWrite(false);
-			mWakeupEventHandler->enableRead(false);
+			mWakeupEventHandler->disableAll();
 			mWakeupEventHandler->remove();
 
 			::close(mwakeupFd);
@@ -162,6 +162,30 @@ namespace Octopus {
 			{
 				wakeup();
 			}
+		}
+
+		TimerId Reactor::setTimer(const Timestamp& time, const TimerCallback& cb)
+		{
+			return mtimerQueue->addTimer(cb, time, 0);
+		}
+		TimerId Reactor::setDelayTimer(double delay, const TimerCallback& cb)
+		{
+			Timestamp time(addTime(Timestamp::now(), delay));
+			return setTimer(time, cb);
+		}
+		TimerId Reactor::setTickTimer(double interval, const TimerCallback& cb)
+		{
+			Timestamp time(addTime(Timestamp::now(), interval));
+			return mtimerQueue->addTimer(cb, time, interval);
+		}
+		void    Reactor::cancelTimer(TimerId timerId)
+		{
+			return mtimerQueue->cancel(timerId);
+		}
+
+		bool Reactor::hasHandler(EventHandler* handler)
+		{
+			return mPoller->hasEventHandler(handler);
 		}
 
 	}

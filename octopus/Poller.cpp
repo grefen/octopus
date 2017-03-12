@@ -139,6 +139,12 @@ namespace Octopus {
 			handler->setIndex(OP_INDEX_NEW);
 		}
 
+		bool Poller::hasEventHandler(EventHandler* handler)
+		{
+			MapEventHandler::const_iterator it = mMapEventHandler.find(handler->fd());
+			return it != mMapEventHandler.end() && it->second == handler;
+		}
+
 		void Poller::extractActiveEventHandlers(int num, EventHandlerList* activeList)
 		{
 			for (int i = 0; i < num; ++i)
