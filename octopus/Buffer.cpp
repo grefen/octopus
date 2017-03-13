@@ -129,4 +129,10 @@ namespace Octopus {
 		return &mBuffer[0] + mReadOffset;
 	}
 
+	void Buffer::retrieveAll()
+	{
+		mReadOffset = 0;
+		mWriteOffset = 0;
+	}
+
 }

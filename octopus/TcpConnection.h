@@ -42,6 +42,18 @@ namespace Octopus {
 				const SocketAddress& peerAddr);
 			virtual ~TcpConnection();
 
+			Reactor*           getReactor();
+			const std::string& getName();
+			const SocketAddress& getLocalAddress();
+			const SocketAddress& getRemoteAddress();
+
+			bool  isConnected();
+			bool  isDisconnected();
+
+			void  send(const void* message, int len);
+			void  send(Buffer* message);
+
+
 			void setConnectionCallback(const ConnectionCallback& cb);
 			void setMessageCallback(const MessageCallback& cb);
 			void setWriteCompleteCallback(const WriteCompleteCallback& cb);
@@ -54,9 +66,26 @@ namespace Octopus {
 			void handleError();
 
 			void shutdown();
+			void forceCloseInReactor();
+			void forceClose();
+			void forceCloseWithDelay(double seconds);
+
+			void setTcpNoDelay(bool on);
+
+			void startRead();
+			void stopRead();
+			void startReadInReactor();
+			void stopReadInReactor();
+			bool isReading();
+
+			Buffer* getReadBuffer();
+			Buffer* getWriteBuffer();
+
+			void connectionEstablished();
+			void connectionDestroyed();
 		protected:
 			void shutdownInReactor();
-			
+			void sendInReactor(const void* message, size_t len);
 		private:
 
 			Reactor*          mpReactor;

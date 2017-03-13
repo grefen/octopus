@@ -35,7 +35,10 @@ namespace Octopus {
 			void quit();
 			void wakeup();
 
+			//排队执行
 			void queuePending(PendingFunctor functor);
+			//直接执行
+			void runInReactor(const PendingFunctor& cb);
 
 			
 			TimerId setTimer(const Timestamp& time, const TimerCallback& cb);

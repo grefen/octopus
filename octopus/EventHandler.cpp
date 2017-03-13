@@ -13,6 +13,7 @@ namespace Octopus {
 			, mrevents(NONE_EVENT)
 			, mindex(-1)
 			, meventHandling(false)
+			, mownered(false)
 		{
 
 		}
@@ -24,6 +25,13 @@ namespace Octopus {
 
 		void EventHandler::handleEvent(Timestamp receiveTime)
 		{
+			if (mownered == false)
+				return;
+
+			//·ÀÖ¹TcpConnection¹ıÔçÏú»Ù
+			std::shared_ptr<void> spOwner = mowner.lock();
+			if (!spOwner) return;
+
 			meventHandling = true;
 			LOG_TRACE << reventsToString();
 
@@ -163,6 +171,12 @@ namespace Octopus {
 		void EventHandler::update()
 		{
 			mRector->updateHandler(this);
+		}
+
+		void EventHandler::bindOwner(const std::shared_ptr<void>& owner)
+		{
+			mowner = owner;
+			mownered = true;
 		}
 
 	}

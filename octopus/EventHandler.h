@@ -58,6 +58,8 @@ namespace Octopus {
 
 			bool isWriting() const { return mevents & WRITE_EVENT; }
 			bool isReading() const { return mevents & READ_EVENT; }
+
+			void bindOwner(const std::shared_ptr<void>& owner);
 		private:
 			static std::string eventsToString(int fd, int ev);
 		private:
@@ -75,6 +77,9 @@ namespace Octopus {
 			int        mindex; 
 
 			bool       meventHandling;
+
+			std::weak_ptr<void> mowner;
+			bool mownered;
 		};
 	}
 }

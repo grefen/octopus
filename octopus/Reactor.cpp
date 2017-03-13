@@ -177,6 +177,10 @@ namespace Octopus {
 				wakeup();
 			}
 		}
+		void Reactor::runInReactor(const PendingFunctor& cb)
+		{
+			cb();
+		}
 
 		TimerId Reactor::setTimer(const Timestamp& time, const TimerCallback& cb)
 		{

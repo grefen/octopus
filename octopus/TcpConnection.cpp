@@ -5,6 +5,28 @@ namespace Octopus {
 
 	namespace Core {
 
+		template<typename T>
+		class WeakCallback
+		{
+		public:
+			WeakCallback(const std::weak_ptr<T>& weakPtr, const std::function<void(T*)>& function)
+				:mWeakPtr(weakPtr), mCallback(function)
+			{}
+
+			void operator()()const
+			{
+				std::shared_ptr<T> sp(mWeakPtr.lock());
+				if (sp)
+				{
+					mCallback(sp.get());
+				}
+			}
+		private:
+
+			std::weak_ptr<T> mWeakPtr;
+			std::function<void(T*)> mCallback;
+		};
+
 		TcpConnection::TcpConnection(Reactor* pReactor,
 			const std::string& name,
 			int sockfd,
@@ -173,8 +195,201 @@ namespace Octopus {
 			{
 				mConnectionState = eDisconnecting;
 				//这里可以直接执行，只有一个线程
-				mpReactor->queuePending(std::bind(&TcpConnection::shutdownInReactor, this));
+				mpReactor->runInReactor(std::bind(&TcpConnection::shutdownInReactor, this));
 			}
+		}
+
+		Reactor* TcpConnection::getReactor()
+		{
+			return mpReactor;
+		}
+
+		const std::string& TcpConnection::getName()
+		{
+			return mName;
+		}
+
+		const SocketAddress& TcpConnection::getLocalAddress()
+		{
+			return mLocalAddress;
+		}
+		const SocketAddress& TcpConnection::getRemoteAddress()
+		{
+			return mRemoteAddress;
+		}
+		bool  TcpConnection::isConnected()
+		{
+			return mConnectionState == eConnected;
+		}
+		bool  TcpConnection::isDisconnected()
+		{
+			return mConnectionState == eDisconnected;
+		}
+
+		void  TcpConnection::send(const void* message, int len)
+		{
+			sendInReactor(message, len);
+		}
+		void  TcpConnection::send(Buffer* buf)
+		{
+			if (mConnectionState == eConnected)
+			{
+				sendInReactor(buf->peek(), buf->availReadBytes());
+				buf->retrieveAll();
+			}
+		}
+		void TcpConnection::sendInReactor(const void* data, size_t len)
+		{
+
+			ssize_t nwrote = 0;
+			size_t remaining = len;
+			bool faultError = false;
+			if (mConnectionState == eDisconnected)
+			{
+				LOG_WARN << "disconnected, give up writing";
+				return;
+			}
+			// mWriteBuffer中没有可发送数据，直接发送
+			if (!mEventHandler->isWriting() && mWriteBuffer.availReadBytes() == 0)
+			{
+				nwrote = ::write(mEventHandler->fd(), data, len);
+				if (nwrote >= 0)
+				{
+					remaining = len - nwrote;
+					if (remaining == 0 && mWriteCompleteCallback)
+					{
+						mpReactor->runInReactor(std::bind(mWriteCompleteCallback, shared_from_this()));
+					}
+				}
+				else // nwrote < 0
+				{
+					nwrote = 0;
+					if (errno != EWOULDBLOCK)
+					{
+						LOG_SYSERR << "TcpConnection::sendInLoop";
+						if (errno == EPIPE || errno == ECONNRESET) // FIXME: any others?
+						{
+							faultError = true;
+						}
+					}
+				}
+			}
+
+			assert(remaining <= len);
+			if (!faultError && remaining > 0)
+			{
+				//如果发送数据过多，调用超量回调函数
+				size_t oldLen = mWriteBuffer.availReadBytes();
+				if (oldLen + remaining >= mHightWaterMark
+					&& oldLen < mHightWaterMark
+					&& mHighWaterMarkCallback)
+				{
+					mpReactor->queuePending(std::bind(mHighWaterMarkCallback, shared_from_this(), oldLen + remaining));
+				}
+				//把多余数据放到发送buffer中
+				mWriteBuffer.append(static_cast<const char*>(data) + nwrote, remaining);
+				if (!mEventHandler->isWriting())
+				{
+					mEventHandler->enableWrite(true);
+				}
+			}
+		}
+
+		void TcpConnection::forceCloseInReactor()
+		{
+			if (mConnectionState == eConnected || mConnectionState == eConnecting)
+			{				
+				handleClose();
+			}
+		}
+
+		void TcpConnection::forceClose()
+		{
+			if (mConnectionState == eConnected || mConnectionState == eConnecting)
+			{
+				mConnectionState = eDisconnecting;
+				mpReactor->queuePending(std::bind(&TcpConnection::forceCloseInReactor, shared_from_this()));
+			}
+		}
+		void TcpConnection::forceCloseWithDelay(double seconds)
+		{
+			if (mConnectionState == eConnected || mConnectionState == eConnecting)
+			{
+				mConnectionState = eDisconnecting;
+
+				//可能已经close，所以用weakptr
+				mpReactor->setDelayTimer(
+					seconds,
+					WeakCallback<TcpConnection>(shared_from_this(),
+						&TcpConnection::forceClose)); 
+			}
+		}
+		void  TcpConnection::setTcpNoDelay(bool on)
+		{
+			mSocket->setTcpNoDelay(on);
+		}
+		void  TcpConnection::startRead()
+		{
+			mpReactor->runInReactor(std::bind(&TcpConnection::startReadInReactor, this));
+		}
+		void  TcpConnection::stopRead()
+		{
+			mpReactor->runInReactor(std::bind(&TcpConnection::stopReadInReactor, this));
+		}
+		void TcpConnection::startReadInReactor()
+		{
+			//设置读，向poll中添加读event
+			if (!mReading || !mEventHandler->isReading())
+			{
+				mEventHandler->enableRead(true);
+				mReading = true;
+			}
+		}
+		void TcpConnection::stopReadInReactor()
+		{
+			//取消读，在poll中取消读event
+			if (mReading || mEventHandler->isReading())
+			{
+				mEventHandler->enableRead(false);
+				mReading = false;
+			}
+		}
+		bool  TcpConnection::isReading()
+		{
+			return mReading;
+		}
+		Buffer* TcpConnection::getReadBuffer()
+		{
+			return &mReadBuffer;
+		}
+		Buffer* TcpConnection::getWriteBuffer()
+		{
+			return &mWriteBuffer;
+		}
+
+		void TcpConnection::connectionEstablished()
+		{
+			
+			assert(mConnectionState == eConnecting);
+			mConnectionState = eConnected;
+			
+			mEventHandler->bindOwner(shared_from_this());
+			mEventHandler->enableRead(true);
+
+			mConnectionCallback(shared_from_this());
+		}
+
+		void TcpConnection::connectionDestroyed()
+		{
+			
+			if (mConnectionState == eConnected)
+			{
+				mConnectionState = eDisconnected;
+				mEventHandler->disableAll();
+
+				mConnectionCallback(shared_from_this());
+			}
+			mEventHandler->remove();
 		}
 
 	}

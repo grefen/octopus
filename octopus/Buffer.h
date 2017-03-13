@@ -32,6 +32,8 @@ namespace Octopus {
 
 		const char* peek() const;
 
+		void retrieveAll();
+
 	private:
 		std::vector<char> mBuffer;
 		size_t            mWriteOffset;
