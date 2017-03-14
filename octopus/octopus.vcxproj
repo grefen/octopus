@@ -63,6 +63,7 @@
   <ItemGroup>
     <ClCompile Include="Acceptor.cpp" />
     <ClCompile Include="Buffer.cpp" />
+    <ClCompile Include="Connector.cpp" />
     <ClCompile Include="Copyable.cpp" />
     <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="Exception.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="Acceptor.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="Buffer.h" />
+    <ClInclude Include="Connector.h" />
     <ClInclude Include="Copyable.h" />
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="Exception.h" />
