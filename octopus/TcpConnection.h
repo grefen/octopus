@@ -23,7 +23,10 @@ namespace Octopus {
 		typedef std::function<void(const TcpConnectionPtr&, size_t)> HighWaterMarkCallback;
      	typedef std::function<void(const TcpConnectionPtr&,	Buffer*, Timestamp)> MessageCallback;
 
-		class TcpConnection : public Noncopyable, std::enable_shared_from_this<TcpConnection>
+		extern void defaultConnectionCallback(const TcpConnectionPtr& conn);
+		extern void defaultMessageCallback(const TcpConnectionPtr&, Buffer* buf, Timestamp stamp);
+
+		class TcpConnection : public Noncopyable, public std::enable_shared_from_this<TcpConnection>
 		{
 		public:
 

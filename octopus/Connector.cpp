@@ -83,7 +83,7 @@ namespace Octopus {
 		{
 		}
 
-		void Connector::setConnectionCallback(const ConnectionCallback& cb)
+		void Connector::setConnectionCallback(const NewConnectionCallback& cb)
 		{
 			mConnectionCallback = cb;
 		}

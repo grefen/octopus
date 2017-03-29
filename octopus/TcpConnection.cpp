@@ -27,6 +27,20 @@ namespace Octopus {
 			std::function<void(T*)> mCallback;
 		};
 
+		void defaultConnectionCallback(const TcpConnectionPtr& conn)
+		{
+			LOG_TRACE << conn->getLocalAddress().hostAndPort() << " -> "
+				<< conn->getRemoteAddress().hostAndPort() << " is "
+				<< (conn->isConnected() ? "UP" : "DOWN");
+		}
+
+		void defaultMessageCallback(const TcpConnectionPtr&,
+			Buffer* buf,
+			Timestamp)
+		{
+			buf->retrieveAll();
+		}
+
 		TcpConnection::TcpConnection(Reactor* pReactor,
 			const std::string& name,
 			int sockfd,

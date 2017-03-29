@@ -12,17 +12,16 @@ namespace Octopus {
 
 	namespace Core {
 
+		typedef std::function<void(int sockfd)> NewConnectionCallback;
 
-		class Connector : public Noncopyable, std::enable_shared_from_this<Connector>
+		class Connector : public Noncopyable, public std::enable_shared_from_this<Connector>
 		{
-		public:
-
-			typedef std::function<void(int sockfd)> ConnectionCallback;
+		public:			
 
 			Connector(Reactor* pReactor, const SocketAddress& address);
 			~Connector();
 
-			void setConnectionCallback(const ConnectionCallback& cb);
+			void setConnectionCallback(const NewConnectionCallback& cb);
 
 			const SocketAddress& getServerAddress();
 
@@ -58,7 +57,7 @@ namespace Octopus {
 			Reactor*      mpReactor;
 			SocketAddress mAddress;
 
-			ConnectionCallback mConnectionCallback;
+			NewConnectionCallback mConnectionCallback;
 
 			std::unique_ptr<EventHandler> mEventHandler;
 
